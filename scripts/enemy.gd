@@ -6,8 +6,11 @@ var health := 30
 var target: Node2D = null
 var damage_per_second := 15
 
-func init(player: Node2D) -> void:
+func init(player: Node2D, h: int, s: float) -> void:
 	target = player
+	max_health = h
+	health = h
+	speed = s
 
 func take_damage(amount: int) -> void:
 	health -= amount
