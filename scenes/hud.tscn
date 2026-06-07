@@ -28,3 +28,7 @@ text = "🌶 0"
 [node name="WaveLabel" type="Label" parent="Container" unique_id=850757229]
 layout_mode = 2
 text = "Vague 1"
+
+[node name="WaveTimer" type="Label" parent="Container" unique_id=647513382]
+layout_mode = 2
+text = "⏱ 30s"

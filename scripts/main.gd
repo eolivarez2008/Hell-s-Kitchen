@@ -32,6 +32,7 @@ func _process(delta: float) -> void:
 	_update_nearest_enemy()
 	hud.update_health(player.health, player.max_health)
 	hud.update_peppers(player.peppers)
+	hud.update_timer(wave_manager.time_remaining)
 
 func _update_nearest_enemy() -> void:
 	var enemies := get_tree().get_nodes_in_group("enemies")
