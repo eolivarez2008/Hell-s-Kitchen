@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://b5dlcf2c4ufbe"]
+
+[ext_resource type="Script" uid="uid://d0chprgae6mfe" path="res://scripts/hud.gd" id="1_ahhtf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahhtf"]
+bg_color = Color(0.90588236, 0.29803923, 0.23529412, 1)
+
+[node name="HUD" type="CanvasLayer" unique_id=1956638048]
+script = ExtResource("1_ahhtf")
+
+[node name="Container" type="VBoxContainer" parent="." unique_id=1411824490]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 216.0
+offset_bottom = 76.0
+
+[node name="HealthBar" type="ProgressBar" parent="Container" unique_id=1294278661]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_ahhtf")
+value = 100.0
+fill_mode = 1
+show_percentage = false
+
+[node name="PepperCount" type="Label" parent="Container" unique_id=775885209]
+layout_mode = 2
+text = "🌶 0"

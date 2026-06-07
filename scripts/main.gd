@@ -3,6 +3,7 @@ extends Node2D
 @onready var player := $Player
 @onready var enemy_spawner := $EnemySpawner
 @onready var wave_manager := $WaveManager
+@onready var hud := $HUD
 
 func _ready() -> void:
 	enemy_spawner.init(player)
@@ -12,6 +13,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_update_nearest_enemy()
+	hud.update_health(player.health, player.max_health)
+	hud.update_peppers(player.peppers)
 
 func _update_nearest_enemy() -> void:
 	var enemies := get_tree().get_nodes_in_group("enemies")

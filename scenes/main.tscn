@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c8u4eg58dq144" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://fpbuidj3wb4a" path="res://scripts/enemy_spawner.gd" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://cgnydmgq4olg6" path="res://scripts/wave_manager.gd" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://b5dlcf2c4ufbe" path="res://scenes/hud.tscn" id="5_tbgi4"]
 
 [node name="Main" type="Node2D" unique_id=1006841536]
 script = ExtResource("1_sugp2")
@@ -24,5 +25,7 @@ wait_time = 2.0
 
 [node name="WaveManager" type="Node2D" parent="." unique_id=1827904740]
 script = ExtResource("4_jyhfs")
+
+[node name="HUD" parent="." unique_id=1956638048 instance=ExtResource("5_tbgi4")]
 
 [connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
