@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+const PepperScene := preload("res://scenes/pepper.tscn")
+
 var speed := 120.0
 var max_health := 30
 var health := 30
@@ -18,7 +20,24 @@ func take_damage(amount: int) -> void:
 		die()
 
 func die() -> void:
+	_drop_pepper()
 	queue_free()
+
+func _drop_pepper() -> void:
+	var roll := randf()
+	var pepper_type: int
+
+	if roll < 0.6:
+		pepper_type = 0
+	elif roll < 0.9:
+		pepper_type = 1
+	else:
+		pepper_type = 2
+
+	var pepper := PepperScene.instantiate()
+	pepper.global_position = global_position
+	get_tree().current_scene.add_child(pepper)
+	pepper.init(pepper_type)
 
 func _physics_process(delta: float) -> void:
 	if target == null:
