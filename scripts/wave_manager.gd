@@ -15,11 +15,11 @@ func init(spawner: Node2D) -> void:
 
 func start_next_wave() -> void:
 	current_wave += 1
-	wave_duration = 30.0 + (current_wave - 1) * 10.0
+	wave_duration = 30.0 + (current_wave - 1) * 8.0
 
-	var new_interval := maxf(0.4, 2.0 - (current_wave - 1) * 0.15)
-	var enemy_health := 30 + (current_wave - 1) * 10
-	var enemy_speed := 120.0 + (current_wave - 1) * 8.0
+	var new_interval := maxf(0.3, 2.0 - (current_wave - 1) * 0.12)
+	var enemy_health := 20 + (current_wave - 1) * 12
+	var enemy_speed := 80.0 + (current_wave - 1) * 6.0
 
 	_spawner.set_wave_params(new_interval, enemy_health, enemy_speed)
 	_spawner.start()
@@ -31,7 +31,6 @@ func start_next_wave() -> void:
 func _process(delta: float) -> void:
 	if not is_active:
 		return
-
 	time_remaining -= delta
 	if time_remaining <= 0.0:
 		_end_wave()

@@ -17,10 +17,21 @@ const COLORS := {
 var type: Type = Type.GREEN
 var value: int = 5
 
+var _scale_timer := 0.0
+const POP_DURATION := 0.2
+
 func init(t: Type) -> void:
 	type = t
 	value = VALUES[t]
+	scale = Vector2(0.5, 0.5)
+	_scale_timer = POP_DURATION
 	queue_redraw()
+
+func _process(delta: float) -> void:
+	if _scale_timer > 0.0:
+		_scale_timer -= delta
+		var t := 1.0 - (_scale_timer / POP_DURATION)
+		scale = Vector2.ONE * lerp(0.5, 1.0, t)
 
 func _draw() -> void:
 	draw_circle(Vector2.ZERO, 8.0, COLORS[type])

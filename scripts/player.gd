@@ -11,6 +11,12 @@ const ARENA_MAX := Vector2(1240, 680)
 @onready var weapon_left := $WeaponLeft
 @onready var weapon_right := $WeaponRight
 @onready var hud: CanvasLayer = $"../hud"
+@onready var body := $Body
+
+var _flash_timer := 0.0
+const FLASH_DURATION := 0.15
+const COLOR_NORMAL := Color(0.29, 0.56, 0.85)
+const COLOR_HIT := Color(1.0, 0.2, 0.2)
 
 func _ready() -> void:
 	add_to_group("player")
@@ -29,8 +35,16 @@ func set_nearest_enemy(enemy: Node2D) -> void:
 func take_damage(amount: int) -> void:
 	health -= amount
 	health = max(0, health)
+	_flash_timer = FLASH_DURATION
 	if hud:
 		hud.update_health(health, max_health)
+
+func _process(delta: float) -> void:
+	if _flash_timer > 0.0:
+		_flash_timer -= delta
+		body.color = COLOR_HIT
+	else:
+		body.color = COLOR_NORMAL
 
 func _physics_process(delta: float) -> void:
 	var direction := Vector2.ZERO
