@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://dnmaehudnh84d"]
 
 [ext_resource type="PackedScene" uid="uid://7x2kifieqq6y" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://c8u4eg58dq144" path="res://scripts/main.gd" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://fpbuidj3wb4a" path="res://scripts/enemy_spawner.gd" id="2_0wfyh"]
 
 [node name="Main" type="Node2D" unique_id=1006841536]
+script = ExtResource("1_sugp2")
 
 [node name="Arena" type="ColorRect" parent="." unique_id=811780110]
 offset_right = 1280.0
@@ -11,3 +14,11 @@ color = Color(0.101960786, 0.101960786, 0.18039216, 1)
 
 [node name="Player" parent="." unique_id=553080397 instance=ExtResource("1_o5qli")]
 position = Vector2(640, 360)
+
+[node name="EnemySpawner" type="Node2D" parent="." unique_id=776592557]
+script = ExtResource("2_0wfyh")
+
+[node name="SpawnTimer" type="Timer" parent="EnemySpawner" unique_id=1204974534]
+wait_time = 2.0
+
+[connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
