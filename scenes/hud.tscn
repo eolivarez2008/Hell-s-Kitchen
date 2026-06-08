@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b5dlcf2c4ufbe"]
 
 [ext_resource type="Script" uid="uid://d0chprgae6mfe" path="res://scripts/hud.gd" id="1_ahhtf"]
+[ext_resource type="FontFile" uid="uid://bwjnbdar0lyfj" path="res://assets/fonts/fa-solid-900.woff2" id="2_oo0fn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahhtf"]
 bg_color = Color(0.90588236, 0.29803923, 0.23529412, 1)
@@ -23,12 +24,15 @@ show_percentage = false
 
 [node name="PepperCount" type="Label" parent="Container" unique_id=775885209]
 layout_mode = 2
-text = "🌶 0"
+theme_override_fonts/font = ExtResource("2_oo0fn")
+text = "\\uf004 0"
 
 [node name="WaveLabel" type="Label" parent="Container" unique_id=850757229]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oo0fn")
 text = "Vague 1"
 
 [node name="WaveTimer" type="Label" parent="Container" unique_id=647513382]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oo0fn")
 text = "⏱ 30s"

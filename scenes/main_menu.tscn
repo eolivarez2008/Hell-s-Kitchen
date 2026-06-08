@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://da1uepob8p5uo"]
 
 [ext_resource type="Script" uid="uid://bfjxc1gbxfaun" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="FontFile" uid="uid://bwjnbdar0lyfj" path="res://assets/fonts/fa-solid-900.woff2" id="2_ekxnf"]
 
 [node name="MainMenu" type="CanvasLayer" unique_id=1941040322]
 script = ExtResource("1_l6cm7")
@@ -24,14 +25,19 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="Panel/Layout" unique_id=1866087702]
 layout_mode = 2
-text = "👨‍🍳 Chef Survivor"
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 18
+text = "Chef Survivor"
 horizontal_alignment = 1
 
 [node name="BestScore" type="Label" parent="Panel/Layout" unique_id=874556792]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 14
 text = "Meilleur score : 0"
 horizontal_alignment = 1
 
 [node name="PlayButton" type="Button" parent="Panel/Layout" unique_id=558512331]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ekxnf")
 text = "Jouer"

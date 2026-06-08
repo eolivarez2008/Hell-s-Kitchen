@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ctb2d8fxwcp34"]
 
 [ext_resource type="Script" uid="uid://okejl00b55k8" path="res://scripts/game_over.gd" id="1_xeevv"]
+[ext_resource type="FontFile" uid="uid://bwjnbdar0lyfj" path="res://assets/fonts/fa-solid-900.woff2" id="2_wqhvx"]
 
 [node name="GameOver" type="CanvasLayer" unique_id=1318348129]
 process_mode = 3
@@ -27,19 +28,23 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="Panel/Layout" unique_id=1518390506]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_wqhvx")
 text = "GAME OVER"
 horizontal_alignment = 1
 
 [node name="WaveLabel" type="Label" parent="Panel/Layout" unique_id=1910455303]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_wqhvx")
 text = "Vague atteinte : 0"
 horizontal_alignment = 1
 
 [node name="BestScore" type="Label" parent="Panel/Layout" unique_id=484576634]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_wqhvx")
 text = "Meilleur score : 0"
 horizontal_alignment = 1
 
 [node name="MenuButton" type="Button" parent="Panel/Layout" unique_id=1976493205]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_wqhvx")
 text = "Menu Principal"
