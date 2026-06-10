@@ -179,7 +179,7 @@ func _draw_ellipse_flat(center: Vector2, rx: float, ry: float, color: Color, seg
 	for i: int in range(segments + 1):
 		var angle: float = TAU * i / segments
 		pts.append(center + Vector2(cos(angle) * rx, sin(angle) * ry))
-	draw_colored_polygon(pts, color)
+	draw_colored_polygon(pts, color)	
 
 func _draw_ellipse_arc(center: Vector2, rx: float, ry: float, color: Color, segments: int, width: float, angle_start: float, angle_end: float) -> void:
 	var step: float = TAU / segments

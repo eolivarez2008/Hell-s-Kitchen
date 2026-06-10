@@ -8,6 +8,9 @@
 radius = 19.0
 height = 48.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_qhqgy"]
+radius = 69.0
+
 [node name="Player" type="CharacterBody2D" unique_id=553080397]
 script = ExtResource("1_3vyb7")
 
@@ -22,6 +25,13 @@ region_rect = Rect2(20.72725, 26.272547, 125.81816, 135.3866)
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1628304059]
 position = Vector2(-4, 1)
 shape = SubResource("CapsuleShape2D_qhqgy")
+
+[node name="MagnetArea" type="Area2D" parent="." unique_id=329395406]
+
+[node name="MagnetCollision" type="CollisionShape2D" parent="MagnetArea" unique_id=947698838]
+position = Vector2(-4, 5)
+shape = SubResource("CircleShape2D_qhqgy")
+debug_color = Color(0.9004931, 0.00016749502, 0.76413476, 0.41960785)
 
 [node name="Camera" type="Camera2D" parent="." unique_id=681890891]
 limit_left = -400
