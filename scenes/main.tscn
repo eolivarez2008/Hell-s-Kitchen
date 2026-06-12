@@ -18,8 +18,6 @@ script = ExtResource("2_tipki")
 [node name="Player" parent="." unique_id=553080397 instance=ExtResource("1_o5qli")]
 process_mode = 1
 position = Vector2(640, 360)
-xp_base = null
-xp_growth = null
 
 [node name="EnemySpawner" type="Node2D" parent="." unique_id=776592557]
 process_mode = 1

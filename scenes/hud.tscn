@@ -55,6 +55,41 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uo2fv"]
+bg_color = Color(0.19, 0.19, 0.19, 0.54901963)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="Gradient" id="Gradient_oo0fn"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5ysmq"]
+gradient = SubResource("Gradient_oo0fn")
+fill = 2
+fill_from = Vector2(0.50581396, 0.43992248)
+fill_to = Vector2(0.501938, 0.44767442)
+metadata/_snap_count = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_047uy"]
+bg_color = Color(0, 0, 0, 0.65000004)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pdws"]
+bg_color = Color(0.40443814, 0.40443814, 0.40443814, 0.89500004)
+border_width_left = 12
+border_width_top = 3
+border_width_right = 13
+border_width_bottom = 3
+border_color = Color(0.40443814, 0.40443814, 0.40443814, 0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [node name="HUD" type="CanvasLayer" unique_id=1956638048]
 script = ExtResource("1_ahhtf")
 
@@ -135,4 +170,415 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_oo0fn")
 theme_override_font_sizes/font_size = 11
 text = "LVL 1"
+horizontal_alignment = 1
+
+[node name="SkillsContainer" type="HBoxContainer" parent="." unique_id=311825847]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -162.5
+offset_top = -118.275024
+offset_right = 162.5
+offset_bottom = -13.275024
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Skill1" type="VBoxContainer" parent="SkillsContainer" unique_id=1754955137]
+layout_mode = 2
+
+[node name="Slot1" type="PanelContainer" parent="SkillsContainer/Skill1" unique_id=1049985601]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uo2fv")
+
+[node name="Container" type="VBoxContainer" parent="SkillsContainer/Skill1/Slot1" unique_id=1486423304]
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="SkillsContainer/Skill1/Slot1/Container" unique_id=2127847050]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "⚡"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Charges" type="HBoxContainer" parent="SkillsContainer/Skill1/Slot1/Container" unique_id=1614756526]
+custom_minimum_size = Vector2(0, 5.985)
+layout_mode = 2
+alignment = 1
+
+[node name="Charge1" type="ColorRect" parent="SkillsContainer/Skill1/Slot1/Container/Charges" unique_id=756681355]
+custom_minimum_size = Vector2(12, 4)
+layout_mode = 2
+
+[node name="Charge2" type="ColorRect" parent="SkillsContainer/Skill1/Slot1/Container/Charges" unique_id=1861072515]
+custom_minimum_size = Vector2(12, 4)
+layout_mode = 2
+
+[node name="Charge3" type="ColorRect" parent="SkillsContainer/Skill1/Slot1/Container/Charges" unique_id=413212807]
+custom_minimum_size = Vector2(12, 4)
+layout_mode = 2
+
+[node name="CooldownOverlay" type="TextureProgressBar" parent="SkillsContainer/Skill1/Slot1" unique_id=278748203]
+custom_minimum_size = Vector2(63, 63)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+fill_mode = 4
+texture_progress = SubResource("GradientTexture2D_5ysmq")
+tint_progress = Color(0, 0, 0, 0.6)
+
+[node name="CooldownLabel" type="Label" parent="SkillsContainer/Skill1/Slot1" unique_id=41835625]
+layout_mode = 2
+text = "1"
+horizontal_alignment = 1
+
+[node name="LockOverlay" type="Panel" parent="SkillsContainer/Skill1/Slot1" unique_id=1617532175]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_047uy")
+
+[node name="Icon" type="Label" parent="SkillsContainer/Skill1/Slot1/LockOverlay" unique_id=1575889861]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -22.440014
+offset_right = 25.0
+offset_bottom = 0.5599861
+grow_horizontal = 2
+grow_vertical = 2
+text = "🔒"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="Label" parent="SkillsContainer/Skill1/Slot1/LockOverlay" unique_id=1151840284]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -0.4400139
+offset_right = 25.0
+offset_bottom = 22.559986
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+text = "LVL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InputContainer" type="PanelContainer" parent="SkillsContainer/Skill1" unique_id=2104371157]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5pdws")
+
+[node name="KeyLabel" type="Label" parent="SkillsContainer/Skill1/InputContainer" unique_id=1669155384]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "1"
+horizontal_alignment = 1
+
+[node name="Skill2" type="VBoxContainer" parent="SkillsContainer" unique_id=1562683678]
+layout_mode = 2
+
+[node name="Slot2" type="PanelContainer" parent="SkillsContainer/Skill2" unique_id=694790720]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uo2fv")
+
+[node name="Container" type="VBoxContainer" parent="SkillsContainer/Skill2/Slot2" unique_id=2048825443]
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="SkillsContainer/Skill2/Slot2/Container" unique_id=1840807908]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "⚡"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Charges" type="HBoxContainer" parent="SkillsContainer/Skill2/Slot2/Container" unique_id=443836627]
+custom_minimum_size = Vector2(0, 5.985)
+layout_mode = 2
+alignment = 1
+
+[node name="Charge1" type="ColorRect" parent="SkillsContainer/Skill2/Slot2/Container/Charges" unique_id=235866709]
+custom_minimum_size = Vector2(12, 4)
+layout_mode = 2
+
+[node name="Charge2" type="ColorRect" parent="SkillsContainer/Skill2/Slot2/Container/Charges" unique_id=627543928]
+custom_minimum_size = Vector2(12, 4)
+layout_mode = 2
+
+[node name="Charge3" type="ColorRect" parent="SkillsContainer/Skill2/Slot2/Container/Charges" unique_id=823914187]
+custom_minimum_size = Vector2(12, 4)
+layout_mode = 2
+
+[node name="CooldownOverlay" type="TextureProgressBar" parent="SkillsContainer/Skill2/Slot2" unique_id=375515932]
+custom_minimum_size = Vector2(63, 63)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+fill_mode = 4
+texture_progress = SubResource("GradientTexture2D_5ysmq")
+tint_progress = Color(0, 0, 0, 0.6)
+
+[node name="CooldownLabel" type="Label" parent="SkillsContainer/Skill2/Slot2" unique_id=1596507966]
+layout_mode = 2
+text = "1"
+horizontal_alignment = 1
+
+[node name="LockOverlay" type="Panel" parent="SkillsContainer/Skill2/Slot2" unique_id=562487241]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_047uy")
+
+[node name="Icon" type="Label" parent="SkillsContainer/Skill2/Slot2/LockOverlay" unique_id=525759645]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -22.440014
+offset_right = 25.0
+offset_bottom = 0.5599861
+grow_horizontal = 2
+grow_vertical = 2
+text = "🔒"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="Label" parent="SkillsContainer/Skill2/Slot2/LockOverlay" unique_id=1494889550]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -0.4400139
+offset_right = 25.0
+offset_bottom = 22.559986
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+text = "LVL 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InputContainer" type="PanelContainer" parent="SkillsContainer/Skill2" unique_id=1251230126]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5pdws")
+
+[node name="KeyLabel" type="Label" parent="SkillsContainer/Skill2/InputContainer" unique_id=810332548]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "2"
+horizontal_alignment = 1
+
+[node name="Skill3" type="VBoxContainer" parent="SkillsContainer" unique_id=1851399076]
+layout_mode = 2
+
+[node name="Slot3" type="PanelContainer" parent="SkillsContainer/Skill3" unique_id=966476707]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uo2fv")
+
+[node name="Container" type="VBoxContainer" parent="SkillsContainer/Skill3/Slot3" unique_id=1325989629]
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="SkillsContainer/Skill3/Slot3/Container" unique_id=207292576]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "⚡"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Charges" type="HBoxContainer" parent="SkillsContainer/Skill3/Slot3/Container" unique_id=1140195011]
+custom_minimum_size = Vector2(0, 5.985)
+layout_mode = 2
+alignment = 1
+
+[node name="Charge1" type="ColorRect" parent="SkillsContainer/Skill3/Slot3/Container/Charges" unique_id=2125803384]
+custom_minimum_size = Vector2(12, 4)
+layout_mode = 2
+
+[node name="Charge2" type="ColorRect" parent="SkillsContainer/Skill3/Slot3/Container/Charges" unique_id=1546633822]
+custom_minimum_size = Vector2(12, 4)
+layout_mode = 2
+
+[node name="Charge3" type="ColorRect" parent="SkillsContainer/Skill3/Slot3/Container/Charges" unique_id=279118208]
+custom_minimum_size = Vector2(12, 4)
+layout_mode = 2
+
+[node name="CooldownOverlay" type="TextureProgressBar" parent="SkillsContainer/Skill3/Slot3" unique_id=1977430614]
+custom_minimum_size = Vector2(63, 63)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+fill_mode = 4
+texture_progress = SubResource("GradientTexture2D_5ysmq")
+tint_progress = Color(0, 0, 0, 0.6)
+
+[node name="CooldownLabel" type="Label" parent="SkillsContainer/Skill3/Slot3" unique_id=1305318854]
+layout_mode = 2
+text = "1"
+horizontal_alignment = 1
+
+[node name="LockOverlay" type="Panel" parent="SkillsContainer/Skill3/Slot3" unique_id=203390119]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_047uy")
+
+[node name="Icon" type="Label" parent="SkillsContainer/Skill3/Slot3/LockOverlay" unique_id=1324464437]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -22.440014
+offset_right = 25.0
+offset_bottom = 0.5599861
+grow_horizontal = 2
+grow_vertical = 2
+text = "🔒"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="Label" parent="SkillsContainer/Skill3/Slot3/LockOverlay" unique_id=811884299]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -0.4400139
+offset_right = 25.0
+offset_bottom = 22.559986
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+text = "LVL 7"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InputContainer" type="PanelContainer" parent="SkillsContainer/Skill3" unique_id=257044833]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5pdws")
+
+[node name="KeyLabel" type="Label" parent="SkillsContainer/Skill3/InputContainer" unique_id=690380232]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "3"
+horizontal_alignment = 1
+
+[node name="Skill4" type="VBoxContainer" parent="SkillsContainer" unique_id=1973353098]
+layout_mode = 2
+
+[node name="Slot4" type="PanelContainer" parent="SkillsContainer/Skill4" unique_id=1263780952]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uo2fv")
+
+[node name="Container" type="VBoxContainer" parent="SkillsContainer/Skill4/Slot4" unique_id=1425075823]
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="SkillsContainer/Skill4/Slot4/Container" unique_id=1494970127]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "⚡"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Charges" type="HBoxContainer" parent="SkillsContainer/Skill4/Slot4/Container" unique_id=1429365240]
+custom_minimum_size = Vector2(0, 5.985)
+layout_mode = 2
+alignment = 1
+
+[node name="Charge1" type="ColorRect" parent="SkillsContainer/Skill4/Slot4/Container/Charges" unique_id=910209190]
+custom_minimum_size = Vector2(12, 4)
+layout_mode = 2
+
+[node name="Charge2" type="ColorRect" parent="SkillsContainer/Skill4/Slot4/Container/Charges" unique_id=529219909]
+custom_minimum_size = Vector2(12, 4)
+layout_mode = 2
+
+[node name="Charge3" type="ColorRect" parent="SkillsContainer/Skill4/Slot4/Container/Charges" unique_id=686376710]
+custom_minimum_size = Vector2(12, 4)
+layout_mode = 2
+
+[node name="CooldownOverlay" type="TextureProgressBar" parent="SkillsContainer/Skill4/Slot4" unique_id=1578920592]
+custom_minimum_size = Vector2(63, 63)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+fill_mode = 4
+texture_progress = SubResource("GradientTexture2D_5ysmq")
+tint_progress = Color(0, 0, 0, 0.6)
+
+[node name="CooldownLabel" type="Label" parent="SkillsContainer/Skill4/Slot4" unique_id=2125256944]
+layout_mode = 2
+text = "1"
+horizontal_alignment = 1
+
+[node name="LockOverlay" type="Panel" parent="SkillsContainer/Skill4/Slot4" unique_id=616505650]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_047uy")
+
+[node name="Icon" type="Label" parent="SkillsContainer/Skill4/Slot4/LockOverlay" unique_id=1287723481]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -22.440014
+offset_right = 25.0
+offset_bottom = 0.5599861
+grow_horizontal = 2
+grow_vertical = 2
+text = "🔒"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="Label" parent="SkillsContainer/Skill4/Slot4/LockOverlay" unique_id=172513138]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -0.4400139
+offset_right = 25.0
+offset_bottom = 22.559986
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+text = "LVL 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InputContainer" type="PanelContainer" parent="SkillsContainer/Skill4" unique_id=1662793525]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5pdws")
+
+[node name="KeyLabel" type="Label" parent="SkillsContainer/Skill4/InputContainer" unique_id=1169603867]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "4"
 horizontal_alignment = 1

@@ -23,9 +23,10 @@ var spicy_xp := 0
 
 @onready var weapon_left := $WeaponLeft
 @onready var weapon_right := $WeaponRight
-var hud: CanvasLayer = null
 @onready var body := $Body
 @onready var camera := $Camera
+
+var hud: CanvasLayer = null
 
 const COLOR_NORMAL := Color(1.0, 1.0, 1.0)
 const COLOR_HIT := Color(10.0, 10.0, 10.0)
@@ -39,6 +40,13 @@ var _time: float = 0.0
 var _is_moving: bool = false
 var _last_direction := Vector2.ZERO
 
+var skills := [
+	{ "req_lvl": 1, "cooldown": 4.0, "max_charges": 3, "current_charges": 3, "current_cooldown": 0.0 },
+	{ "req_lvl": 4, "cooldown": 8.0, "max_charges": 3, "current_charges": 3, "current_cooldown": 0.0 },
+	{ "req_lvl": 7, "cooldown": 12.0, "max_charges": 3, "current_charges": 3, "current_cooldown": 0.0 },
+	{ "req_lvl": 10, "cooldown": 20.0, "max_charges": 3, "current_charges": 3, "current_cooldown": 0.0 }
+]
+
 func _ready() -> void:
 	add_to_group("player")
 	
@@ -51,6 +59,14 @@ func _ready() -> void:
 		weapon_right.init(10, 1.5)
 	if hud:
 		hud.update_health(health, max_health)
+		_refresh_hud_locks()
+
+func _refresh_hud_locks() -> void:
+	if not hud:
+		return
+	for i in range(skills.size()):
+		var is_locked = spicy_level < skills[i]["req_lvl"]
+		hud.update_skill_lock(i, is_locked)
 
 func add_peppers(amount: int) -> void:
 	peppers += amount
@@ -65,8 +81,15 @@ func _add_xp(amount: int) -> void:
 		spicy_xp -= needed
 		spicy_level += 1
 		needed = _xp_for_next_level()
+		
+		for skill in skills:
+			if skill["req_lvl"] == spicy_level:
+				skill["current_charges"] = skill["max_charges"]
+				
 		if hud:
 			hud.on_level_up(spicy_level)
+			
+		_refresh_hud_locks()
 
 func _xp_for_next_level() -> int:
 	return xp_base + (spicy_level - 1) * xp_growth
@@ -89,13 +112,64 @@ func _process(delta: float) -> void:
 	_update_nearest_enemy()
 	_update_procedural_animations(delta)
 	_update_camera_effects(delta)
+	_update_skills_cooldown(delta)
+
+func _update_skills_cooldown(delta: float) -> void:
+	for i in range(skills.size()):
+		var skill = skills[i]
+		
+		if skill["current_cooldown"] > 0.0:
+			skill["current_cooldown"] -= delta
+			if skill["current_cooldown"] < 0.0:
+				skill["current_cooldown"] = 0.0
+					
+		if hud:
+			var pct = 0.0
+			if skill["current_cooldown"] > 0.0:
+				pct = skill["current_cooldown"] / skill["cooldown"]
+			hud.update_skill_ui(i, skill["current_charges"], skill["max_charges"], pct, skill["current_cooldown"])
+
+func _unhandled_input(event: InputEvent) -> void:
+	if Engine.is_editor_hint():
+		return
+		
+	if event.is_action_pressed("skill_1"): _use_skill(0)
+	elif event.is_action_pressed("skill_2"): _use_skill(1)
+	elif event.is_action_pressed("skill_3"): _use_skill(2)
+	elif event.is_action_pressed("skill_4"): _use_skill(3)
+
+func _use_skill(index: int) -> void:
+	var skill = skills[index]
+	
+	if spicy_level < skill["req_lvl"]:
+		return
+		
+	if skill["current_charges"] <= 0 or skill["current_cooldown"] > 0.0:
+		if hud:
+			hud.shake_slot(index)
+		return
+		
+	skill["current_charges"] -= 1
+	skill["current_cooldown"] = skill["cooldown"]
+	
+	_trigger_skill_logic(index)
+
+func replenish_skill_charges(index: int, amount: int) -> void:
+	if index < skills.size():
+		skills[index]["current_charges"] = min(skills[index]["current_charges"] + amount, skills[index]["max_charges"])
+
+func _trigger_skill_logic(index: int) -> void:
+	match index:
+		0: print("Compétence 1 activée !")
+		1: print("Compétence 2 activée !")
+		2: print("Compétence 3 activée !")
+		3: print("Compétence Ultim activée !")
 
 func _update_nearest_enemy() -> void:
 	var closest_enemy: Node2D = null
 	var min_distance := INF
 	
 	var enemies := get_tree().get_nodes_in_group("enemies")
-	
 	for enemy in enemies:
 		if is_instance_valid(enemy):
 			var dist := global_position.distance_to(enemy.global_position)

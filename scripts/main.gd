@@ -9,6 +9,9 @@ extends Node2D
 @onready var death_watch_timer := $DeathWatchTimer
 
 func _ready() -> void:
+	if player and hud:
+		player.hud = hud
+		player._update_skills_cooldown(0.0)
 	enemy_spawner.init(player)
 	wave_manager.init(enemy_spawner)
 	shop.init(player)
@@ -26,6 +29,7 @@ func _process(delta: float) -> void:
 	hud.update_peppers(player.peppers)
 	hud.update_timer(wave_manager.time_remaining)
 	hud.update_spicy(player.spicy_level, player.spicy_xp, player._xp_for_next_level())
+	player._update_skills_cooldown(0.0)
 
 func _on_wave_started(wave_number: int) -> void:
 	hud.update_wave(wave_number)
