@@ -11,6 +11,14 @@ height = 48.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_qhqgy"]
 radius = 69.0
 
+[sub_resource type="Curve" id="Curve_qhqgy"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_dqkch"]
+offsets = PackedFloat32Array(0, 0.25, 0.6, 1)
+colors = PackedColorArray(1, 0.917, 0, 1, 1, 0.45, 0, 1, 0.86, 0.11, 0, 0.78, 0.22, 0.22, 0.22, 0)
+
 [node name="Player" type="CharacterBody2D" unique_id=553080397]
 script = ExtResource("1_3vyb7")
 
@@ -45,3 +53,21 @@ position = Vector2(-24, 0)
 
 [node name="WeaponRight" parent="." unique_id=2121068565 instance=ExtResource("2_g2els")]
 position = Vector2(24, 0)
+
+[node name="DashParticles" type="CPUParticles2D" parent="." unique_id=763201868]
+emitting = false
+amount = 50
+lifetime = 0.25
+local_coords = false
+draw_order = 1
+emission_shape = 1
+emission_sphere_radius = 8.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, -120)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+scale_amount_min = 5.0
+scale_amount_max = 7.0
+scale_amount_curve = SubResource("Curve_qhqgy")
+color_ramp = SubResource("Gradient_dqkch")  

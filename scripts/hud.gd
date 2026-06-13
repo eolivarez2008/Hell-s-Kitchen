@@ -5,6 +5,7 @@ const ICON_WAVE: String = "\uf091"
 const ICON_CLOCK: String = "\uf017"
 
 @onready var health_bar: ProgressBar = $HealthBar
+@onready var shield_overlay: ProgressBar = $HealthBar/ShieldOverlay
 @onready var pepper_label: Label = $PepperCount
 @onready var wave_label: Label = $WaveContainer/WaveLabel
 @onready var wave_timer: Label = $WaveContainer/WaveTimer
@@ -18,8 +19,48 @@ const ICON_CLOCK: String = "\uf017"
 	$SkillsContainer/Skill4/Slot4
 ]
 
+@onready var speed_lines: TextureRect = $SpeedLines
+
 func _ready() -> void:
 	update_input_labels()
+	speed_lines.visible = false
+	speed_lines.pivot_offset = speed_lines.size / 2.0
+	if is_instance_valid(health_bar):
+		var fill_style: StyleBoxFlat = health_bar.get_theme_stylebox("fill").duplicate()
+		health_bar.add_theme_stylebox_override("fill", fill_style)
+
+func play_dash_effect(direction: Vector2) -> void:
+	var old_tween = speed_lines.get_meta("dash_tween", null)
+	if old_tween and old_tween.is_valid():
+		old_tween.kill()
+
+	speed_lines.visible = true
+	speed_lines.modulate = Color(1, 1, 1, 0)
+	speed_lines.scale = Vector2(1.15, 1.15)
+
+	var tween := create_tween()
+	speed_lines.set_meta("dash_tween", tween)
+
+	tween.tween_property(speed_lines, "modulate:a", 1.0, 0.04)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(speed_lines, "scale", Vector2.ONE, 0.15)\
+		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+	tween.tween_property(speed_lines, "modulate:a", 0.0, 0.2)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tween.tween_callback(func(): speed_lines.visible = false)
+
+func flash_white(duration: float = 0.08) -> void:
+	var flash := ColorRect.new()
+	flash.color = Color(1, 1, 1, 0.35)
+	flash.set_anchors_preset(Control.PRESET_FULL_RECT)
+	flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(flash)
+
+	var tween := create_tween()
+	tween.tween_property(flash, "color:a", 0.0, duration)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_callback(flash.queue_free)
 
 func update_input_labels() -> void:
 	var actions = ["skill_1", "skill_2", "skill_3", "skill_4"]
@@ -137,3 +178,23 @@ func shake_slot(slot_index: int) -> void:
 	tween.tween_property(slot, "position:x", slot.position.x - intensity, duration)
 	tween.tween_property(slot, "position:x", slot.position.x + intensity, duration)
 	tween.tween_property(slot, "position:x", slot.position.x, duration)
+	
+const COLOR_HEALTH_NORMAL := Color(1, 0, 0, 1)
+const COLOR_HEALTH_SHIELD := Color(0.2, 0.5, 1.0, 1)
+
+func set_shield_active(active: bool) -> void:
+	if not is_instance_valid(health_bar):
+		return
+	var fill_style: StyleBoxFlat = health_bar.get_theme_stylebox("fill")
+	if active:
+		fill_style.bg_color = COLOR_HEALTH_SHIELD
+		shield_overlay.visible = true
+		shield_overlay.value = 1.0
+	else:
+		fill_style.bg_color = COLOR_HEALTH_NORMAL
+		shield_overlay.visible = false
+
+func update_shield_progress(pct: float) -> void:
+	if not is_instance_valid(shield_overlay):
+		return
+	shield_overlay.value = pct

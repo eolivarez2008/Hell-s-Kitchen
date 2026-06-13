@@ -2,20 +2,10 @@
 extends CharacterBody2D
 
 @export var shake_decay := 4.0
-var _shake_intensity := 0.0
-
 @export var look_ahead_distance := 50.0
 @export var look_ahead_speed := 3.0
-
-var speed := 200.0
-var max_health := 100
-var health := 100
-var peppers := 0
-var spicy_level := 0
-var spicy_xp := 0
-
-@export var xp_base := 150
-@export var xp_growth := 100
+@export var xp_base := 15
+@export var xp_growth := 10
 @export var attack_range := 450.0:
 	set(value):
 		attack_range = value
@@ -25,27 +15,38 @@ var spicy_xp := 0
 @onready var weapon_right := $WeaponRight
 @onready var body := $Body
 @onready var camera := $Camera
+@onready var dash_particles: CPUParticles2D = $DashParticles
 
-var hud: CanvasLayer = null
-
-const COLOR_NORMAL := Color(1.0, 1.0, 1.0)
-const COLOR_HIT := Color(10.0, 10.0, 10.0)
-const FLASH_DURATION: float = 0.1
-const SQUASH_DURATION: float = 0.15
-
+var _shake_intensity := 0.0
+var speed := 200.0
+var max_health := 100
+var health := 100
+var peppers := 0
+var spicy_level := 0
+var spicy_xp := 0
+var is_shielded := false
+var shield_duration := 3.0
+var shield_timer := 0.0
 var _flash_timer: float = 0.0
 var _squash_timer: float = 0.0
 var _anim_scale: Vector2 = Vector2.ONE
 var _time: float = 0.0
 var _is_moving: bool = false
 var _last_direction := Vector2.ZERO
-
+var _is_dashing: bool = false
+var hud: CanvasLayer = null
 var skills := [
 	{ "req_lvl": 1, "cooldown": 4.0, "max_charges": 3, "current_charges": 3, "current_cooldown": 0.0 },
 	{ "req_lvl": 4, "cooldown": 8.0, "max_charges": 3, "current_charges": 3, "current_cooldown": 0.0 },
 	{ "req_lvl": 7, "cooldown": 12.0, "max_charges": 3, "current_charges": 3, "current_cooldown": 0.0 },
 	{ "req_lvl": 10, "cooldown": 20.0, "max_charges": 3, "current_charges": 3, "current_cooldown": 0.0 }
 ]
+
+const COLOR_NORMAL := Color(1.0, 1.0, 1.0)
+const COLOR_HIT := Color(10.0, 10.0, 10.0)
+const FLASH_DURATION: float = 0.1
+const SQUASH_DURATION: float = 0.15
+const DASH_SPEED: float = 650.0
 
 func _ready() -> void:
 	add_to_group("player")
@@ -95,6 +96,8 @@ func _xp_for_next_level() -> int:
 	return xp_base + (spicy_level - 1) * xp_growth
 
 func take_damage(amount: int) -> void:
+	if is_shielded:
+		return
 	health -= amount
 	health = max(0, health)
 	_flash_timer = FLASH_DURATION
@@ -113,6 +116,19 @@ func _process(delta: float) -> void:
 	_update_procedural_animations(delta)
 	_update_camera_effects(delta)
 	_update_skills_cooldown(delta)
+	_update_shield(delta)
+	
+func _update_shield(delta: float) -> void:
+	if not is_shielded:
+		return
+	shield_timer -= delta
+	if hud:
+		hud.update_shield_progress(shield_timer / shield_duration)
+	if shield_timer <= 0.0:
+		is_shielded = false
+		shield_timer = 0.0
+		if hud:
+			hud.set_shield_active(false)
 
 func _update_skills_cooldown(delta: float) -> void:
 	for i in range(skills.size()):
@@ -160,10 +176,45 @@ func replenish_skill_charges(index: int, amount: int) -> void:
 
 func _trigger_skill_logic(index: int) -> void:
 	match index:
-		0: print("Compétence 1 activée !")
-		1: print("Compétence 2 activée !")
+		0: _activate_dash()
+		1: _activate_shield()
 		2: print("Compétence 3 activée !")
 		3: print("Compétence Ultim activée !")
+
+func _activate_dash() -> void:
+	_is_dashing = true
+	if dash_particles:
+		dash_particles.emitting = true
+		
+	var dash_dir = Vector2.ZERO
+	dash_dir.x = Input.get_axis("move_left", "move_right")
+	dash_dir.y = Input.get_axis("move_up", "move_down")
+	
+	if dash_dir == Vector2.ZERO:
+		dash_dir = _last_direction if _last_direction != Vector2.ZERO else Vector2.DOWN
+	else:
+		dash_dir = dash_dir.normalized()
+		
+	velocity = dash_dir * DASH_SPEED
+	_shake_intensity = max(_shake_intensity, 8.0)
+	
+	if hud:
+		hud.play_dash_effect(dash_dir)
+		hud.flash_white()
+	
+	var tween = create_tween()
+	
+	tween.tween_callback(func():
+		_is_dashing = false
+		if dash_particles:
+			dash_particles.emitting = false
+	).set_delay(0.2)
+
+func _activate_shield() -> void:
+	is_shielded = true
+	shield_timer = shield_duration
+	if hud:
+		hud.set_shield_active(true)
 
 func _update_nearest_enemy() -> void:
 	var closest_enemy: Node2D = null
@@ -228,6 +279,10 @@ func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 		
+	if _is_dashing:
+		move_and_slide()
+		return
+		
 	var direction := Vector2.ZERO
 	direction.x = Input.get_axis("move_left", "move_right")
 	direction.y = Input.get_axis("move_up", "move_down")
@@ -246,6 +301,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _draw() -> void:
-	if Engine.is_editor_hint():
+	if Engine.is_editor_hint() and typeof(attack_range) == TYPE_FLOAT:
 		var circle_color := Color(0.0, 0.6, 0.2, 0.15)
 		draw_circle(Vector2.ZERO, attack_range, circle_color)

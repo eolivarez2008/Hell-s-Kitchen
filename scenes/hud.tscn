@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" uid="uid://d0chprgae6mfe" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="FontFile" uid="uid://bwjnbdar0lyfj" path="res://assets/fonts/fa-solid-900.woff2" id="2_oo0fn"]
+[ext_resource type="Texture2D" uid="uid://duubx5hcpeeh" path="res://assets/sprites/speedlines.png" id="3_5ysmq"]
+[ext_resource type="Texture2D" uid="uid://cmq6oermachep" path="res://assets/sprites/sprint.png" id="3_6fi6k"]
+[ext_resource type="Texture2D" uid="uid://dw8vi03w4ytqm" path="res://assets/sprites/shield-reflect.png" id="4_5pdws"]
+[ext_resource type="Texture2D" uid="uid://br3m3cy8acnr6" path="res://assets/sprites/mine-explosion.png" id="5_hd3ao"]
+[ext_resource type="Texture2D" uid="uid://hpdmnjeud4x1" path="res://assets/sprites/bombing-run.png" id="6_0i1j5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6fi6k"]
 bg_color = Color(0.8, 0.8, 0.8, 1)
@@ -23,6 +28,23 @@ border_width_left = 4
 border_width_top = 4
 border_width_right = 3
 border_width_bottom = 3
+border_color = Color(0.8001019, 0.8001019, 0.8001019, 0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hd3ao"]
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
+skew = Vector2(0.29, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0i1j5"]
+bg_color = Color(0.85814106, 0.85814106, 0.85814106, 0.70000005)
+skew = Vector2(0.29, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 1
+border_width_bottom = 1
 border_color = Color(0.8001019, 0.8001019, 0.8001019, 0)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
@@ -56,7 +78,7 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uo2fv"]
-bg_color = Color(0.19, 0.19, 0.19, 0.54901963)
+bg_color = Color(0.1882353, 0.1882353, 0.1882353, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -103,6 +125,18 @@ scale = Vector2(1.4, 1.4)
 theme_override_styles/background = SubResource("StyleBoxFlat_6fi6k")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ahhtf")
 value = 100.0
+show_percentage = false
+
+[node name="ShieldOverlay" type="ProgressBar" parent="HealthBar" unique_id=1033309385]
+visible = false
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 22.142855
+theme_override_styles/background = SubResource("StyleBoxFlat_hd3ao")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0i1j5")
+max_value = 1.0
+value = 1.0
 show_percentage = false
 
 [node name="WaveContainer" type="VBoxContainer" parent="." unique_id=1411824490]
@@ -197,14 +231,14 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_uo2fv")
 
 [node name="Container" type="VBoxContainer" parent="SkillsContainer/Skill1/Slot1" unique_id=1486423304]
 layout_mode = 2
+size_flags_vertical = 4
 
-[node name="Icon" type="Label" parent="SkillsContainer/Skill1/Slot1/Container" unique_id=2127847050]
-custom_minimum_size = Vector2(0, 52)
+[node name="Icon" type="TextureRect" parent="SkillsContainer/Skill1/Slot1/Container" unique_id=348953363]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "⚡"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("3_6fi6k")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Charges" type="HBoxContainer" parent="SkillsContainer/Skill1/Slot1/Container" unique_id=1614756526]
 custom_minimum_size = Vector2(0, 5.985)
@@ -296,14 +330,14 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_uo2fv")
 
 [node name="Container" type="VBoxContainer" parent="SkillsContainer/Skill2/Slot2" unique_id=2048825443]
 layout_mode = 2
+size_flags_vertical = 4
 
-[node name="Icon" type="Label" parent="SkillsContainer/Skill2/Slot2/Container" unique_id=1840807908]
-custom_minimum_size = Vector2(0, 52)
+[node name="Icon" type="TextureRect" parent="SkillsContainer/Skill2/Slot2/Container" unique_id=295415646]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "⚡"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("4_5pdws")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Charges" type="HBoxContainer" parent="SkillsContainer/Skill2/Slot2/Container" unique_id=443836627]
 custom_minimum_size = Vector2(0, 5.985)
@@ -395,14 +429,14 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_uo2fv")
 
 [node name="Container" type="VBoxContainer" parent="SkillsContainer/Skill3/Slot3" unique_id=1325989629]
 layout_mode = 2
+size_flags_vertical = 4
 
-[node name="Icon" type="Label" parent="SkillsContainer/Skill3/Slot3/Container" unique_id=207292576]
-custom_minimum_size = Vector2(0, 52)
+[node name="Icon" type="TextureRect" parent="SkillsContainer/Skill3/Slot3/Container" unique_id=1103078215]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "⚡"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("5_hd3ao")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Charges" type="HBoxContainer" parent="SkillsContainer/Skill3/Slot3/Container" unique_id=1140195011]
 custom_minimum_size = Vector2(0, 5.985)
@@ -494,14 +528,14 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_uo2fv")
 
 [node name="Container" type="VBoxContainer" parent="SkillsContainer/Skill4/Slot4" unique_id=1425075823]
 layout_mode = 2
+size_flags_vertical = 4
 
-[node name="Icon" type="Label" parent="SkillsContainer/Skill4/Slot4/Container" unique_id=1494970127]
-custom_minimum_size = Vector2(0, 52)
+[node name="Icon" type="TextureRect" parent="SkillsContainer/Skill4/Slot4/Container" unique_id=2069957707]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "⚡"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("6_0i1j5")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Charges" type="HBoxContainer" parent="SkillsContainer/Skill4/Slot4/Container" unique_id=1429365240]
 custom_minimum_size = Vector2(0, 5.985)
@@ -582,3 +616,14 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "4"
 horizontal_alignment = 1
+
+[node name="SpeedLines" type="TextureRect" parent="." unique_id=222842327]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_5ysmq")
+expand_mode = 1
+stretch_mode = 6
