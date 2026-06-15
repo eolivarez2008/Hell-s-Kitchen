@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var player := $Player
+@onready var player := $Arena/Player
 @onready var enemy_spawner := $EnemySpawner
 @onready var wave_manager := $WaveManager
 @onready var hud := $HUD

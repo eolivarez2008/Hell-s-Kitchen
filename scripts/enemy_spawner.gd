@@ -12,6 +12,10 @@ const SPAWN_WEIGHTS := {
 	"bruto":  0.15,
 }
 
+const ARENA_CENTER := Vector2(640, 360)
+const ARENA_RX := 840.0
+const ARENA_RY := 730.0
+
 const IndicatorScene := preload("res://scenes/indicator.tscn")
 
 var player: Node2D = null
@@ -43,10 +47,16 @@ func _on_spawn_timer_timeout() -> void:
 	if player == null or arena == null:
 		return
 	
-	var spawn_pos: Vector2 = arena.random_spawn_position()
+	var spawn_pos: Vector2 = _random_spawn_position()
 	var enemy_key: String = _pick_enemy_type()
 	
 	_spawn_with_indicator(spawn_pos, enemy_key)
+
+func _random_spawn_position() -> Vector2:
+	var angle: float = randf() * TAU
+	var r: float = sqrt(randf())
+	return ARENA_CENTER + Vector2(cos(angle) * ARENA_RX * r, sin(angle) * ARENA_RY * r)
+
 
 func _spawn_with_indicator(spawn_pos: Vector2, enemy_key: String) -> void:
 	var indicator := IndicatorScene.instantiate() as Sprite2D

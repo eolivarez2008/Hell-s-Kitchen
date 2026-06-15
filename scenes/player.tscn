@@ -5,8 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ot32qosovvxm" path="res://assets/sprites/sprite.png" id="2_qhqgy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qhqgy"]
-radius = 19.0
-height = 48.0
+height = 42.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qhqgy"]
 radius = 69.0
@@ -20,24 +19,27 @@ offsets = PackedFloat32Array(0, 0.25, 0.6, 1)
 colors = PackedColorArray(1, 0.917, 0, 1, 1, 0.45, 0, 1, 0.86, 0.11, 0, 0.78, 0.22, 0.22, 0.22, 0)
 
 [node name="Player" type="CharacterBody2D" unique_id=553080397]
+y_sort_enabled = true
 script = ExtResource("1_3vyb7")
 
 [node name="Body" type="Sprite2D" parent="." unique_id=1252013559]
 texture_filter = 1
-position = Vector2(-6, 0)
+position = Vector2(-5, 19)
 scale = Vector2(0.5, 0.411)
 texture = ExtResource("2_qhqgy")
+offset = Vector2(-4.455, -53.505)
 region_enabled = true
 region_rect = Rect2(20.72725, 26.272547, 125.81816, 135.3866)
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1628304059]
-position = Vector2(-4, 1)
+position = Vector2(-3, 17)
+rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_qhqgy")
 
 [node name="MagnetArea" type="Area2D" parent="." unique_id=329395406]
 
 [node name="MagnetCollision" type="CollisionShape2D" parent="MagnetArea" unique_id=947698838]
-position = Vector2(-4, 5)
+position = Vector2(-3, 17)
 shape = SubResource("CircleShape2D_qhqgy")
 debug_color = Color(0.9004931, 0.00016749502, 0.76413476, 0.41960785)
 
@@ -58,7 +60,6 @@ position = Vector2(24, 0)
 emitting = false
 amount = 50
 lifetime = 0.25
-local_coords = false
 draw_order = 1
 emission_shape = 1
 emission_sphere_radius = 8.0
@@ -70,4 +71,4 @@ initial_velocity_max = 40.0
 scale_amount_min = 5.0
 scale_amount_max = 7.0
 scale_amount_curve = SubResource("Curve_qhqgy")
-color_ramp = SubResource("Gradient_dqkch")  
+color_ramp = SubResource("Gradient_dqkch")
