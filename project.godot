@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 SaveManager="*uid://dwecbflynt2vq"
+UITheme="*res://scripts/ui_theme.gd"
+SpicyManager="*uid://ftb3otd6oytw"
 
 [display]
 
@@ -93,6 +95,10 @@ skill_4={
 2d_physics/layer_3="Obstacles"
 2d_physics/layer_4="Projectiles"
 2d_physics/layer_5="Items"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
 
 [rendering]
 

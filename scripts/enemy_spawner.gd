@@ -1,15 +1,19 @@
 extends Node2D
 
 const ENEMY_SCENES := {
-	"slimek": preload("res://scenes/enemy_slimek.tscn"),
-	"bruto":  preload("res://scenes/enemy_bruto.tscn"),
-	"zapper": preload("res://scenes/enemy_zapper.tscn"),
+	"golem":  preload("res://scenes/enemy_golem.tscn"),
+	"orc":  preload("res://scenes/enemy_orc.tscn"),
+	"skeleton":  preload("res://scenes/enemy_skeleton.tscn"),
+	"zombie":  preload("res://scenes/enemy_zombie.tscn"),
+	"minotaur":  preload("res://scenes/enemy_minotaur.tscn"),
 }
 
 const SPAWN_WEIGHTS := {
-	"slimek": 0.65,
-	"zapper": 0.20,
-	"bruto":  0.15,
+	"golem":  0.05,
+	"orc":  0.20,
+	"skeleton":  0.35,
+	"zombie":  0.30,
+	"minotaur":  0.10,
 }
 
 const IndicatorScene := preload("res://scenes/indicator.tscn")

@@ -32,6 +32,10 @@ var _last_direction := Vector2.DOWN
 var _is_dashing: bool = false
 var hud: CanvasLayer = null
 var _movement_locked := false
+
+var _enemy_update_timer: float = 0.0
+const ENEMY_UPDATE_INTERVAL: float = 0.1
+
 var skills := [
 	{ "req_lvl": 1, "cooldown": 4.0, "max_charges": 3, "current_charges": 3, "current_cooldown": 0.0 },
 	{ "req_lvl": 4, "cooldown": 8.0, "max_charges": 3, "current_charges": 3, "current_cooldown": 0.0 },
@@ -104,7 +108,11 @@ func _process(delta: float) -> void:
 		queue_redraw()
 		return
 		
-	_update_nearest_enemy()
+	_enemy_update_timer -= delta
+	if _enemy_update_timer <= 0.0:
+		_update_nearest_enemy()
+		_enemy_update_timer = ENEMY_UPDATE_INTERVAL
+		
 	_update_camera_effects(delta)
 	_update_skills_cooldown(delta)
 	_update_shield(delta)
@@ -176,7 +184,7 @@ func _trigger_skill_logic(index: int) -> void:
 func _activate_mind_control() -> void:
 	var enemies := get_tree().get_nodes_in_group("enemies")
 	for enemy in enemies:
-		if is_instance_valid(enemy) and randf() <= 0.7:
+		if is_instance_valid(enemy) and not enemy._dead and randf() <= 0.7:
 			enemy.infect()
 	if hud:
 		hud.play_screen_flash(Color(0.7, 0.1, 0.9))
@@ -189,7 +197,7 @@ func _activate_bomb(radius: float, time: float, thickness: float) -> void:
 	wave.initial_thickness = thickness
 	wave.global_position = global_position
 	
-	get_tree().current_scene.add_child(wave)
+	get_tree().current_scene.call_deferred("add_child", wave)
 	
 	_shake_intensity = max(_shake_intensity, radius * 0.05)
 	
@@ -244,7 +252,7 @@ func _update_nearest_enemy() -> void:
 	
 	var enemies := get_tree().get_nodes_in_group("enemies")
 	for enemy in enemies:
-		if is_instance_valid(enemy):
+		if is_instance_valid(enemy) and not enemy._dead:
 			var dist := global_position.distance_to(enemy.global_position)
 			if dist < min_distance and dist <= attack_range:
 				min_distance = dist
@@ -288,10 +296,14 @@ func _update_sprite_animation() -> void:
 	else:
 		anim_suffix = "left"
 		
+	var target_anim := ""
 	if _is_moving:
-		body.play("run_" + anim_suffix)
+		target_anim = "run_" + anim_suffix
 	else:
-		body.play("idle_" + anim_suffix)
+		target_anim = "idle_" + anim_suffix
+		
+	if body.animation != target_anim:
+		body.play(target_anim)
 
 func _physics_process(_delta: float) -> void:
 	if Engine.is_editor_hint():
