@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="Hell's kitchen"
+config/name="Bad Crop"
 run/main_scene="uid://da1uepob8p5uo"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/image="uid://byn0vnukqiwrb"
+config/icon="uid://byn0vnukqiwrb"
 
 [autoload]
 

@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://dqgnfjveqfqwc"]
+
+[ext_resource type="Script" uid="uid://d0tsrgu31gu7s" path="res://scripts/ecran_chargement.gd" id="1_evjdg"]
+[ext_resource type="Texture2D" uid="uid://brbh2gim3btes" path="res://assets/sprites/forest-backgrounds/Cartoon_Forest_BG_01/Layers/Sky.png" id="2_evjdg"]
+[ext_resource type="Texture2D" uid="uid://xg4kgviq2lxv" path="res://assets/sprites/forest-backgrounds/Cartoon_Forest_BG_01/Layers/BG_Decor.png" id="3_b05ri"]
+[ext_resource type="Texture2D" uid="uid://c82gox6r5xn33" path="res://assets/sprites/forest-backgrounds/Cartoon_Forest_BG_01/Layers/Middle_Decor.png" id="4_adsvm"]
+[ext_resource type="Texture2D" uid="uid://dwrm61p350oje" path="res://assets/sprites/forest-backgrounds/Cartoon_Forest_BG_01/Layers/Foreground.png" id="5_wg0c3"]
+[ext_resource type="Texture2D" uid="uid://b7pobcptl2ue8" path="res://assets/sprites/forest-backgrounds/Cartoon_Forest_BG_01/Layers/Ground.png" id="6_vfqqm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evjdg"]
+bg_color = Color(0.043137256, 0.08627451, 0.039215688, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.09411765, 0.2, 0.08627451, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b05ri"]
+bg_color = Color(0.38431373, 0.8235294, 0.38039216, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_evjdg"]
+font_size = 36
+
+[node name="EcranChargement" type="CanvasLayer" unique_id=62338403]
+script = ExtResource("1_evjdg")
+
+[node name="Background" type="Control" parent="." unique_id=382367218]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.667, 0.667)
+
+[node name="Sky" type="Parallax2D" parent="Background" unique_id=548449175]
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Sky" unique_id=416084413]
+texture = ExtResource("2_evjdg")
+
+[node name="BGDecor" type="Parallax2D" parent="Background" unique_id=374825738]
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/BGDecor" unique_id=1441620360]
+texture = ExtResource("3_b05ri")
+
+[node name="MiddleDecor" type="Parallax2D" parent="Background" unique_id=1462503623]
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/MiddleDecor" unique_id=861151908]
+texture = ExtResource("4_adsvm")
+
+[node name="ForeGround" type="Parallax2D" parent="Background" unique_id=768506847]
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ForeGround" unique_id=874702806]
+texture = ExtResource("5_wg0c3")
+
+[node name="Ground" type="Parallax2D" parent="Background" unique_id=1960486473]
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Ground" unique_id=2145811545]
+texture = ExtResource("6_vfqqm")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=616745111]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 75.0
+offset_top = -70.0
+offset_right = -55.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_evjdg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b05ri")
+show_percentage = false
+
+[node name="Label" type="Label" parent="." unique_id=1409211944]
+offset_left = 66.0
+offset_top = 45.0
+offset_right = 386.0
+offset_bottom = 94.0
+text = "Chargement . . ."
+label_settings = SubResource("LabelSettings_evjdg")

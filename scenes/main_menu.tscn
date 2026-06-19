@@ -2,42 +2,183 @@
 
 [ext_resource type="Script" uid="uid://bfjxc1gbxfaun" path="res://scripts/main_menu.gd" id="1_l6cm7"]
 [ext_resource type="FontFile" uid="uid://bwjnbdar0lyfj" path="res://assets/fonts/fa-solid-900.woff2" id="2_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://debdcn2dkmqiw" path="res://assets/sprites/forest-backgrounds/Cartoon_Forest_BG_03/Layers/Sky.png" id="2_oa1go"]
+[ext_resource type="Texture2D" uid="uid://ceybj7c203qkv" path="res://assets/sprites/forest-backgrounds/Cartoon_Forest_BG_03/Layers/BG_Decor.png" id="3_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://d0l65kb4drop1" path="res://assets/sprites/forest-backgrounds/Cartoon_Forest_BG_03/Layers/Middle_Decor.png" id="4_jk1qb"]
+[ext_resource type="Texture2D" uid="uid://c7ie7kggxc5d5" path="res://assets/sprites/forest-backgrounds/Cartoon_Forest_BG_03/Layers/Foreground.png" id="5_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://8m5qiwj3mnpp" path="res://assets/sprites/forest-backgrounds/Cartoon_Forest_BG_03/Layers/Ground.png" id="6_lgwnu"]
+[ext_resource type="Texture2D" uid="uid://byn0vnukqiwrb" path="res://icon.png" id="7_tbmy8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tbmy8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jk1qb"]
+bg_color = Color(0.16078432, 0.32941177, 0.14509805, 1)
+border_width_left = 20
+border_width_top = 12
+border_width_right = 20
+border_width_bottom = 12
+border_color = Color(0.16078432, 0.32941177, 0.14509805, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5dd4i"]
+bg_color = Color(0.09411765, 0.2, 0.08627451, 1)
+border_width_left = 20
+border_width_top = 12
+border_width_right = 20
+border_width_bottom = 12
+border_color = Color(0.09411765, 0.2, 0.08627451, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lgwnu"]
+bg_color = Color(0.27450982, 0.5411765, 0.25490198, 1)
+border_width_left = 20
+border_width_top = 12
+border_width_right = 20
+border_width_bottom = 12
+border_color = Color(0.27450982, 0.5411765, 0.25490198, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_flqon"]
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/styles/focus = SubResource("StyleBoxEmpty_tbmy8")
+Button/styles/hover = SubResource("StyleBoxFlat_jk1qb")
+Button/styles/normal = SubResource("StyleBoxFlat_5dd4i")
+Button/styles/pressed = SubResource("StyleBoxFlat_lgwnu")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbmy8"]
+bg_color = Color(0.043137256, 0.08627451, 0.039215688, 0.78431374)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.38431373, 0.8235294, 0.38039216, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="MainMenu" type="CanvasLayer" unique_id=1941040322]
 script = ExtResource("1_l6cm7")
 
-[node name="Panel" type="PanelContainer" parent="." unique_id=571526451]
-custom_minimum_size = Vector2(400, 250)
+[node name="Background" type="Control" parent="." unique_id=806865949]
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -31.0
-offset_right = 20.0
-offset_bottom = 31.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.667, 0.667)
 
-[node name="Layout" type="VBoxContainer" parent="Panel" unique_id=616442932]
+[node name="Sky" type="Parallax2D" parent="Background" unique_id=1007460991]
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Sky" unique_id=264958333]
+texture = ExtResource("2_oa1go")
+
+[node name="BGDecor" type="Parallax2D" parent="Background" unique_id=822090195]
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/BGDecor" unique_id=824877679]
+texture = ExtResource("3_tbmy8")
+
+[node name="MiddleDecor" type="Parallax2D" parent="Background" unique_id=598528778]
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/MiddleDecor" unique_id=1749523120]
+texture = ExtResource("4_jk1qb")
+
+[node name="ForeGround" type="Parallax2D" parent="Background" unique_id=398225290]
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ForeGround" unique_id=792050455]
+texture = ExtResource("5_5dd4i")
+
+[node name="Ground" type="Parallax2D" parent="Background" unique_id=1864961430]
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Ground" unique_id=1686374233]
+texture = ExtResource("6_lgwnu")
+
+[node name="Logo" type="TextureRect" parent="." unique_id=1375306183]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -533.495
+offset_top = -289.5
+offset_right = -102.49463
+offset_bottom = 289.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("7_tbmy8")
+
+[node name="Menu" type="PanelContainer" parent="." unique_id=571526451]
+custom_minimum_size = Vector2(400, 250)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 114.82
+offset_top = -125.0
+offset_right = 514.8208
+offset_bottom = 125.0
+grow_vertical = 2
+theme = SubResource("Theme_flqon")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tbmy8")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu" unique_id=1567660996]
 layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 40
 
-[node name="Title" type="Label" parent="Panel/Layout" unique_id=1866087702]
+[node name="Layout" type="VBoxContainer" parent="Menu/MarginContainer" unique_id=616442932]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_ekxnf")
-theme_override_font_sizes/font_size = 18
-text = "Chef Survivor"
-horizontal_alignment = 1
+theme_override_constants/separation = 18
 
-[node name="BestScore" type="Label" parent="Panel/Layout" unique_id=874556792]
+[node name="ScoreLabel" type="Label" parent="Menu/MarginContainer/Layout" unique_id=874556792]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 14
-text = "Meilleur score : 0"
+text = "Meilleur score : 000"
 horizontal_alignment = 1
 
-[node name="PlayButton" type="Button" parent="Panel/Layout" unique_id=558512331]
+[node name="HSeparator" type="HSeparator" parent="Menu/MarginContainer/Layout" unique_id=680549288]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="Menu/MarginContainer/Layout" unique_id=558512331]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ekxnf")
 text = "Jouer"
+
+[node name="ControlsButton" type="Button" parent="Menu/MarginContainer/Layout" unique_id=867554825]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ekxnf")
+text = "Commandes"
+
+[node name="SettingsButton" type="Button" parent="Menu/MarginContainer/Layout" unique_id=1895242453]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ekxnf")
+text = "Parametres"
+
+[node name="QuitButton" type="Button" parent="Menu/MarginContainer/Layout" unique_id=22048654]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ekxnf")
+text = "Parametres"
+
+[connection signal="pressed" from="Menu/MarginContainer/Layout/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/Layout/ControlsButton" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/Layout/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/Layout/QuitButton" to="." method="_on_quit_button_pressed"]
